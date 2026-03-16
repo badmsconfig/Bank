@@ -1,0 +1,36 @@
+text
+# Виртуальное окружение
+venv/
+env/
+.venv/
+bank/
+bank37/
+bank_infer/
+Scripts/
+Lib/
+pyvenv.cfg
+
+# Временные файлы
+~$*.docx
+*.pyc
+__pycache__/
+
+# Файлы Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Данные (если они большие)
+*.mp4
+*.avi
+*.mov
+*.xlsx
+*.json
+# IDE
+.idea/
+.vscode/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
