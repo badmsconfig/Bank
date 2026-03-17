@@ -198,7 +198,7 @@ def point_in_polygon(x, y, poly):
 
 from shapely.geometry import Point, Polygon
 
-def detect_zone(x, y, zones, tolerance=60):
+def detect_zone(x, y, zones, tolerance=40):
     """
     Определяет, находится ли точка (x,y) внутри зоны (с допуском tolerance пикселей).
     tolerance – на сколько пикселей можно выйти за границу, чтобы всё равно считаться внутри.
