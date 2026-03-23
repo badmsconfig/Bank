@@ -230,7 +230,7 @@ def detect_zone(x, y, zones):
 # ------------------------------------------------
 # FUNCTIONS FOR CURRENCY RECOGNITION
 # ------------------------------------------------
-def get_hand_bbox(hand_landmarks, img_shape, padding_factor=0.3):
+def get_hand_bbox(hand_landmarks, img_shape, padding_factor=0.6):
     h, w, _ = img_shape
     xs = [lm.x * w for lm in hand_landmarks.landmark]
     ys = [lm.y * h for lm in hand_landmarks.landmark]
@@ -251,7 +251,7 @@ def preprocess_hand_roi(roi, target_size=(224,224)):
     roi_normalized = roi_resized.astype(np.float32) / 255.0
     return np.expand_dims(roi_normalized, axis=0)
 
-CONFIDENCE_THRESHOLD = 0.5
+CONFIDENCE_THRESHOLD = 0.7
 
 # ------------------------------------------------
 # MAIN LOOP
@@ -279,13 +279,11 @@ while True:
 
             # ---------------- RIGHT HAND ----------------
             if results.right_hand_landmarks and show_hands:
-                mp_draw.draw_landmarks(
-                    frame,
-                    results.right_hand_landmarks,
-                    mp_holistic.HAND_CONNECTIONS,
-                    hand_drawing_spec,
-                    hand_drawing_spec
-                )
+                # Рисуем bounding box вместо скелета
+                bbox = get_hand_bbox(results.right_hand_landmarks, frame.shape,
+                                     padding_factor=0.2)  # небольшой отступ для красоты
+                x1, y1, x2, y2 = bbox
+                cv2.rectangle(frame, (x1, y1), (x2, y2), (255, 0, 0), 2)  # синий цвет, толщина 2
 
                 wrist = results.right_hand_landmarks.landmark[0]
                 rx = int(wrist.x * w)
@@ -331,13 +329,10 @@ while True:
 
             # ---------------- LEFT HAND ----------------
             if results.left_hand_landmarks and show_hands:
-                mp_draw.draw_landmarks(
-                    frame,
-                    results.left_hand_landmarks,
-                    mp_holistic.HAND_CONNECTIONS,
-                    hand_drawing_spec,
-                    hand_drawing_spec
-                )
+                # Рисуем bounding box
+                bbox = get_hand_bbox(results.left_hand_landmarks, frame.shape, padding_factor=0.2)
+                x1, y1, x2, y2 = bbox
+                cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 0, 255), 2)  # красный цвет
 
                 wrist = results.left_hand_landmarks.landmark[0]
                 lx = int(wrist.x * w)

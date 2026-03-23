@@ -5,7 +5,7 @@ import glob
 
 # Путь к тренировочной папке
 base_path = r"D:\python_work\pythonProject\Bank\data_money\train"
-target_folders = ["empty"]  # обрабатываем только эти папки
+target_folders = ["empty","BYN","USD"]  # обрабатываем только эти папки
 
 # Допустимые расширения изображений
 extensions = ('*.jpg', '*.jpeg', '*.png', '*.bmp')
